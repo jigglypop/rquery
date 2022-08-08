@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useRef } from "react";
+import Hello from "./components/Hello";
+import { RQeury } from "./rquery";
+import { $ } from ".";
 
 function App() {
+  const appRef = useRef<HTMLDivElement>(null);
+  RQeury.ready(appRef);
+  useEffect(() => {
+    console.log($(".Hello").parent());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="App" className="App" ref={appRef}>
+      <Hello />
+      <Hello />
+      <div id="App2">
+        <Hello />
+      </div>
+      <div id="App3">
+        <Hello />
+      </div>
     </div>
   );
 }
