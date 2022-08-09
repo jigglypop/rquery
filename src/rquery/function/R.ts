@@ -25,4 +25,9 @@ export class R<T> {
   fmap(f: Function) {
     return R.of(this.chain(f));
   }
+
+  // getOrElse
+  getOrElse(defaultValue: T, f: Function) {
+    return this.isNothing() ? defaultValue : R.of(f(this.value));
+  }
 }

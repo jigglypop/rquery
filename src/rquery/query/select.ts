@@ -1,3 +1,4 @@
+import { pipe } from "../function/compose";
 import { R } from "../function/R";
 import { IEl, IRef } from "./type";
 
@@ -7,27 +8,20 @@ export function setR(Ref: R<R<IEl>>, S: string) {
     R.of(ref?.value?.current?.querySelectorAll(S))
   );
 }
-// 인접 관계 선택자
-export function selection(getR: any, Ref: any) {
-  return {
-    parent() {
-      return Ref.chain((nodes: any) => {
-        console.log(nodes);
-        const temp: any = [];
-        nodes.forEach((node: any) => temp.push(node.parentNode));
-        return R.of(temp);
-      });
-    },
-    news() {
-      return 1;
-    },
-  };
-}
 export function parent(Els: R<NodeListOf<any>>) {
-  console.log("parent");
   return Els.chain((nodes: any) => {
     const temp: any = [];
     nodes.forEach((node: any) => temp.push(node.parentNode));
     return R.of(temp);
   });
+}
+
+// 인접 관계 선택자
+export function selection(getR: any, Ref: any) {
+  return {
+    parent() {
+      return pipe(getR, parent)(Ref);
+    },
+    children() {},
+  };
 }

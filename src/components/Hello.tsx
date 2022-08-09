@@ -4,9 +4,9 @@ import { $ } from "..";
 // import { Ready } from "../App";
 
 function Hello() {
-  useEffect(() => {
-    // console.log($());
-  }, []);
+  // useEffect(() => {
+  //   console.log($(".Hello").parent());
+  // }, []);
   return (
     <div className="Hello">
       <h1>hello</h1>

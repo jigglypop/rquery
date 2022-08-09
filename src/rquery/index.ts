@@ -13,4 +13,4 @@ export function RQueryInit() {
     },
   };
 }
-export const RQeury = RQueryInit();
+export const RQeury: any = RQueryInit();

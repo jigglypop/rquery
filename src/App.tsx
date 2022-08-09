@@ -7,8 +7,9 @@ import { $ } from ".";
 function App() {
   const appRef = useRef<HTMLDivElement>(null);
   RQeury.ready(appRef);
+
   useEffect(() => {
-    console.log($(".Hello").parent());
+    console.log($("#App2").get());
   }, []);
 
   return (
