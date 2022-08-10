@@ -1,26 +1,27 @@
+import { pipe } from "../function/pipe";
 import { R } from "../function/R";
-import { selection, setR } from "./select";
-import { IEl } from "./type";
+import { children, parent, prev, selectAll } from "./select";
+import { IEl, IQuery } from "./type";
 
-export const query = (El: R<IEl>, S: string) => {
-  const Ref = R.of(El);
-
-  function getR(Ref: any) {
-    return setR(Ref, S);
-  }
-
-  const Arguments = {
-    get() {
-      return this.setR(Ref, S)?.join();
-    },
-    // 세팅
-    setR,
-    // 인접 관계 선택자
-    ...selection(getR, Ref),
-    css(a: string, b: string) {},
-  };
-
+export const query = (El: R<IEl>, S: string): IQuery => {
+  const Ref = El;
   return {
-    ...Arguments,
+    // 세팅
+    set: function (El: R<IEl>) {
+      return R.of(selectAll).ap(El).ap(S).map(Array.from);
+    },
+    get: function () {
+      return this.set(Ref).join();
+    },
+    // 인접 관계 선택자
+    parent: function () {
+      return pipe(this.set, parent)(Ref);
+    },
+    children: function () {
+      return pipe(this.set, children)(Ref);
+    },
+    prev: function () {
+      return pipe(this.set, prev)(Ref);
+    },
   };
 };

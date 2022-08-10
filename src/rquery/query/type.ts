@@ -1,4 +1,5 @@
 import { RefObject } from "react";
+import { R } from "../function/R";
 
 export type IEl =
   | Document
@@ -11,4 +12,12 @@ export type IEl =
 
 export type IRef = {
   value: RefObject<HTMLElement>;
+};
+
+export type IQuery = {
+  set: (El: R<IEl>) => Node[];
+  get: () => any;
+  parent: () => void;
+  children: () => void;
+  prev: () => void;
 };

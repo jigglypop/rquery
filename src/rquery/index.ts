@@ -1,8 +1,9 @@
 import { R } from "./function/R";
 import { query } from "./query";
+import { IRQuery } from "./type";
 
 export function RQueryInit() {
-  let appRef: any = null;
+  let appRef: React.RefObject<HTMLDivElement> | null = null;
   return {
     ready: function (ref: React.RefObject<HTMLDivElement>) {
       appRef = ref;
@@ -13,4 +14,4 @@ export function RQueryInit() {
     },
   };
 }
-export const RQeury: any = RQueryInit();
+export const RQeury: IRQuery = RQueryInit();

@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { RQeury } from "./rquery";
 
 export const $ = RQeury.$;
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

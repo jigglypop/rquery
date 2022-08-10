@@ -1,5 +1,3 @@
-export interface IMaybe<T> {
-  isJust(): boolean;
-  isNothing(): boolean;
-  getOrElse(defaultValue: T): T;
-}
+import { RQueryInit } from ".";
+
+export type IRQuery = ReturnType<typeof RQueryInit>;

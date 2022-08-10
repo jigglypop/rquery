@@ -1,27 +1,51 @@
-import { pipe } from "../function/compose";
 import { R } from "../function/R";
-import { IEl, IRef } from "./type";
+import { IRef } from "./type";
 
 // 셀렉트 함수를 모아놓은 부분
-export function setR(Ref: R<R<IEl>>, S: string) {
-  return Ref.chain((ref: IRef) =>
-    R.of(ref?.value?.current?.querySelectorAll(S))
+export const selectAll = (ref: IRef) => (S: string) => {
+  if (S === "#App") {
+    return ref?.value?.current;
+  } else {
+    return ref?.value?.current?.querySelectorAll(S);
+  }
+};
+
+// 부모 선택자
+export function parent(Els: R<Node[]>) {
+  return Els.chain((nodes: Node[]) =>
+    R.of(
+      nodes.reduce(
+        (_nodes: Node[], node: Node) =>
+          _nodes.concat(node.parentNode ? [node.parentNode] : []),
+        []
+      )
+    )
   );
 }
-export function parent(Els: R<NodeListOf<any>>) {
-  return Els.chain((nodes: any) => {
-    const temp: any = [];
-    nodes.forEach((node: any) => temp.push(node.parentNode));
-    return R.of(temp);
-  });
+// 자식 선택자
+export function children(Els: R<Node[]>) {
+  return Els.chain((nodes: Node[]) =>
+    R.of(
+      nodes.reduce(
+        (_nodes: Node[], node: Node) =>
+          _nodes.concat(node.childNodes ? Array.from(node.childNodes) : []),
+        []
+      )
+    )
+  );
 }
 
-// 인접 관계 선택자
-export function selection(getR: any, Ref: any) {
-  return {
-    parent() {
-      return pipe(getR, parent)(Ref);
-    },
-    children() {},
-  };
+// 형 이전 요소
+export function prev(Els: R<Node[]>) {
+  return Els.chain((nodes: Node[]) => R.of(nodes[0].previousSibling));
+}
+
+export function siblings(Els: R<NodeListOf<Node>>) {
+  return Els.chain((nodes: NodeListOf<Node>) => {
+    const temp: Node[] = [];
+    nodes.forEach((node: Node) => {
+      // node.nextSibling
+    });
+    return R.of(temp);
+  });
 }

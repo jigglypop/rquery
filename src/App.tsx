@@ -7,21 +7,22 @@ import { $ } from ".";
 function App() {
   const appRef = useRef<HTMLDivElement>(null);
   RQeury.ready(appRef);
-
   useEffect(() => {
-    console.log($("#App2").get());
+    console.log($("#App2").prev());
   }, []);
 
   return (
     <div id="App" className="App" ref={appRef}>
-      <Hello />
-      <Hello />
       <div id="App2">
         <Hello />
+        <Hello />
+        <Hello />
+        <div id="App21"></div>
       </div>
       <div id="App3">
         <Hello />
       </div>
+      <div id="App4"></div>
     </div>
   );
 }

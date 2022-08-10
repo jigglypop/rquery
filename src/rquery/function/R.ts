@@ -5,6 +5,10 @@ export class R<T> {
     return new R<U>(value);
   }
 
+  getValue() {
+    return this.value;
+  }
+
   isNothing() {
     return this.value === null || this.value === undefined;
   }
@@ -25,9 +29,14 @@ export class R<T> {
   fmap(f: Function) {
     return R.of(this.chain(f));
   }
-
+  // 어플리케이티브
+  ap<U>(b: U): any {
+    const f = this.value;
+    if (f instanceof Function) return R.of((f as Function)(b));
+    else return R.of(null);
+  }
   // getOrElse
-  getOrElse(defaultValue: T, f: Function) {
-    return this.isNothing() ? defaultValue : R.of(f(this.value));
+  getOrElse<U>(defaultValue: U) {
+    return this.isNothing() ? defaultValue : this.value;
   }
 }
