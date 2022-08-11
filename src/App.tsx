@@ -8,7 +8,7 @@ function App() {
   const appRef = useRef<HTMLDivElement>(null);
   RQeury.ready(appRef);
   useEffect(() => {
-    console.log($("#App2").prev());
+    console.log($("#App6").parent().parent().prev().prev().prev());
   }, []);
 
   return (
@@ -22,7 +22,11 @@ function App() {
       <div id="App3">
         <Hello />
       </div>
-      <div id="App4"></div>
+      <div id="App4">
+        <div id="App5">
+          <div id="App6"></div>
+        </div>
+      </div>
     </div>
   );
 }

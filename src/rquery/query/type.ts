@@ -17,7 +17,7 @@ export type IRef = {
 export type IQuery = {
   set: (El: R<IEl>) => Node[];
   get: () => any;
-  parent: () => void;
+  parent: () => IQuery;
   children: () => void;
   prev: () => void;
 };

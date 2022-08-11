@@ -1,5 +1,5 @@
 import { R } from "../function/R";
-import { IRef } from "./type";
+import { IEl, IRef } from "./type";
 
 // 셀렉트 함수를 모아놓은 부분
 export const selectAll = (ref: IRef) => (S: string) => {
@@ -11,33 +11,29 @@ export const selectAll = (ref: IRef) => (S: string) => {
 };
 
 // 부모 선택자
-export function parent(Els: R<Node[]>) {
-  return Els.chain((nodes: Node[]) =>
-    R.of(
-      nodes.reduce(
-        (_nodes: Node[], node: Node) =>
-          _nodes.concat(node.parentNode ? [node.parentNode] : []),
-        []
-      )
+export function parent(RNodes: Node[]): R<Node[]> {
+  return R.of(RNodes).map((nodes: Node[]) =>
+    nodes.reduce(
+      (_nodes: Node[], node: Node) =>
+        _nodes.concat(node.parentNode ? [node.parentNode] : []),
+      []
     )
   );
 }
 // 자식 선택자
-export function children(Els: R<Node[]>) {
-  return Els.chain((nodes: Node[]) =>
-    R.of(
-      nodes.reduce(
-        (_nodes: Node[], node: Node) =>
-          _nodes.concat(node.childNodes ? Array.from(node.childNodes) : []),
-        []
-      )
+export function children(RNodes: Node[]): R<Node[]> {
+  return R.of(RNodes).map((nodes: Node[]) =>
+    nodes.reduce(
+      (_nodes: Node[], node: Node) =>
+        _nodes.concat(node.childNodes ? Array.from(node.childNodes) : []),
+      []
     )
   );
 }
 
 // 형 이전 요소
-export function prev(Els: R<Node[]>) {
-  return Els.chain((nodes: Node[]) => R.of(nodes[0].previousSibling));
+export function prev(RNodes: Node[]): R<Node[]> {
+  return R.of(RNodes).map((nodes: Node[]) => [nodes[0].previousSibling]);
 }
 
 export function siblings(Els: R<NodeListOf<Node>>) {
