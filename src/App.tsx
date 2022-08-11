@@ -1,14 +1,14 @@
 import "./App.css";
 import { useEffect, useRef } from "react";
 import Hello from "./components/Hello";
-import { RQeury } from "./rquery";
+import { RQuery } from "./rquery";
 import { $ } from ".";
 
 function App() {
   const appRef = useRef<HTMLDivElement>(null);
-  RQeury.ready(appRef);
+  RQuery.ready(appRef);
   useEffect(() => {
-    console.log($("#App6").parent().parent().prev().prev().prev());
+    console.log($("#App4").parent().children().find("#App4"));
   }, []);
 
   return (

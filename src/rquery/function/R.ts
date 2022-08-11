@@ -1,5 +1,5 @@
+import { find, index } from "../query/find";
 import { children, parent, prev } from "../query/select";
-import { pipe } from "./pipe";
 
 export class R<T> {
   constructor(private value: T) {}
@@ -45,12 +45,23 @@ export class R<T> {
 
   // 인접 관계 선택자
   parent() {
-    return parent(this.value as any);
+    return parent(this.value);
   }
   children() {
-    return children(this.value as any);
+    return children(this.value);
   }
   prev() {
-    return prev(this.value as any);
+    return prev(this.value);
+  }
+  next() {
+    return prev(this.value);
+  }
+
+  // 찾기
+  index(s: string) {
+    return R.of(index).ap(this.value).ap(s);
+  }
+  find(s: string) {
+    return R.of(find).ap(this.value).ap(s);
   }
 }

@@ -3,9 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { RQeury } from "./rquery";
+import { RQuery } from "./rquery";
 
-export const $ = RQeury.$;
+export const $ = RQuery.$;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
