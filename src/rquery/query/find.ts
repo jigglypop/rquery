@@ -18,13 +18,5 @@ export const find =
       nodes.find(RQuery.$(S).getOrElse(null)[0])
     );
   };
-// 형제 요소
-// export function siblings(RNodes: Node[]): R<Node[]> {
-//   return R.of(RNodes).map((nodes: Node[]) =>
-//     nodes.reduce(
-//       (_nodes: Node[], node: Node) =>
-//         _nodes.concat(node.s ? Array.from(node.childNodes) : []),
-//       []
-//     )
-//   );
-// }
+
+//
