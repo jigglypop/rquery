@@ -20,3 +20,16 @@ export const find =
   };
 
 //
+export const contains =
+  <T>(RNodes: T) =>
+  (S: string) => {
+    return R.of(RNodes)
+      .index(S)
+      .map((x: number) => (x === -1 ? false : true));
+  };
+
+export const is =
+  <T>(RNodes: T) =>
+  (S: string) => {
+    return R.of(RNodes).chain((x: any) => x[0].style.display);
+  };

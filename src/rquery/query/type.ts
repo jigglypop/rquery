@@ -21,3 +21,8 @@ export type IQuery = {
   children: () => void;
   prev: () => void;
 };
+
+export type ISelectAll = {
+  cur: HTMLElement | null;
+  S_arr: string[];
+};

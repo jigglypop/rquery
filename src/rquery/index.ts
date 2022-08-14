@@ -1,5 +1,4 @@
-import { R } from "./function/R";
-import { selectAll } from "./query/select";
+import { Select } from "./query/select";
 import { IRQuery } from "./type";
 
 export function RQueryInit() {
@@ -10,12 +9,7 @@ export function RQueryInit() {
       return appRef;
     },
     $: function (S: string) {
-      const refArr = R.of(selectAll)
-        .ap(R.of(appRef))
-        .ap(S)
-        .map(Array.from)
-        .getOrElse(null);
-      return new R(refArr);
+      return Select(appRef, S);
     },
   };
 }

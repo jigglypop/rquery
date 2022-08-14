@@ -7,8 +7,9 @@ import { $ } from ".";
 function App() {
   const appRef = useRef<HTMLDivElement>(null);
   RQuery.ready(appRef);
+
   useEffect(() => {
-    console.log($("#App4").parent().children().find("#App4"));
+    console.log($(".Hello"));
   }, []);
 
   return (
@@ -17,7 +18,7 @@ function App() {
         <Hello />
         <Hello />
         <Hello />
-        <div id="App21"></div>
+        <div id="App21" style={{ display: "none" }}></div>
       </div>
       <div id="App3">
         <Hello />
