@@ -22,7 +22,32 @@ export type IQuery = {
   prev: () => void;
 };
 
+export type IDotAndParam = {
+  eq: (N: number) => R<Node[]>;
+};
+
+export type IDot = {
+  first: () => R<Node[]>;
+  last: () => R<Node[]>;
+  first_of_type: () => R<Node[]>;
+  last_of_type: () => R<Node[]>;
+  odd: () => R<Node[]>;
+  even: () => R<Node[]>;
+};
+
+export const dots = [
+  "first",
+  "last",
+  "first_of_type",
+  "last_of_type",
+  "odd",
+  "even",
+];
+export const dotsAndParam = ["eq"];
+
 export type ISelectAll = {
   cur: HTMLElement | null;
   S_arr: string[];
 };
+
+export type IKeyOfQuery = typeof R[keyof typeof R];

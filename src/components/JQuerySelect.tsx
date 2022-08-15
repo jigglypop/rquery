@@ -1,13 +1,8 @@
-import React, {
-  MutableRefObject,
-  useEffect,
-  useInsertionEffect,
-  useRef,
-} from "react";
-import { jQuery } from "./jquery";
+import React, { useEffect, useRef } from "react";
+import { $ } from "..";
 // import { $ } from "../rquery/query";
 
-let N = 10 ** 6;
+let N = 10 ** 5;
 
 function GetId() {
   useEffect(() => {
@@ -24,7 +19,7 @@ function GetId() {
     </>
   );
 }
-function GetClassName() {
+function GetJustClassName() {
   useEffect(() => {
     for (let i = 0; i < N; i++) {
       const note = document.querySelector("#sum") as HTMLElement;
@@ -39,7 +34,18 @@ function GetClassName() {
     </>
   );
 }
-
+function GetRQueryClassName() {
+  useEffect(() => {
+    for (let i = 0; i < N; i++) {
+      $("#sum");
+    }
+  }, []);
+  return (
+    <>
+      <div id="sum" className="sum"></div>
+    </>
+  );
+}
 // function GetRQeuryClassName() {
 //   const ref: MutableRefObject<null> | null = useRef(null);
 //   useEffect(() => {
@@ -72,4 +78,4 @@ function GetRef() {
   );
 }
 
-export { GetId, GetRef, GetClassName };
+export { GetId, GetRef, GetJustClassName, GetRQueryClassName };

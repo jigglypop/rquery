@@ -1,4 +1,4 @@
-import "./App.css";
+import React from "react";
 import { useEffect, useRef } from "react";
 import Hello from "./components/Hello";
 import { RQuery } from "./rquery";
@@ -9,7 +9,14 @@ function App() {
   RQuery.ready(appRef);
 
   useEffect(() => {
-    console.log($(".Hello"));
+    const N = 10 ** 6;
+    for (let i = 0; i < N; i++) {
+      // const app = $("#App2").get()[0];
+      // const app = document.querySelector("#App2");
+      const app = appRef.current?.querySelector("#App2");
+      // console.log(appRef.current?.querySelector("#App2"));
+    }
+    // console.log($("#App2").merge($(".Hello")));
   }, []);
 
   return (

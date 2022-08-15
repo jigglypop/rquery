@@ -1,7 +1,8 @@
 import { contains, find, index, is } from "../query/find";
 import { eq, even, first, last, odd } from "../query/search";
-import { children, parent, prev } from "../query/choice";
+import { children, parent, parents, prev, siblings } from "../query/choice";
 import { Log } from "../query/util";
+import { each, grep, inArray, map, merge } from "../query/array";
 
 export class R<T> {
   constructor(private value: T) {}
@@ -18,7 +19,7 @@ export class R<T> {
   isNothing() {
     return this.value === null || this.value === undefined;
   }
-  map(f: Function) {
+  rmap(f: Function) {
     return new R(f(this.value));
   }
   // 모나드
@@ -28,9 +29,7 @@ export class R<T> {
   chain<U>(f: Function): R<U> {
     return f(this.value);
   }
-  fmap(f: Function) {
-    return R.of(this.chain(f));
-  }
+
   // 어플리케이티브
   ap<U>(b: U): R<any> {
     const f = this.value;
@@ -42,12 +41,17 @@ export class R<T> {
     return this.isNothing() ? defaultValue : this.value;
   }
   // 셀렉트
-  first_of_type() {}
   first() {
     return first(this.value);
   }
   last() {
     return last(this.value);
+  }
+  first_of_type() {
+    return this.first();
+  }
+  last_of_type() {
+    return this.last();
   }
   odd() {
     return odd(this.value);
@@ -62,8 +66,14 @@ export class R<T> {
   parent() {
     return parent(this.value);
   }
+  parents() {
+    return parents(this.value);
+  }
   children() {
     return children(this.value);
+  }
+  siblings() {
+    return siblings(this.value);
   }
   prev() {
     return prev(this.value);
@@ -71,7 +81,7 @@ export class R<T> {
   next() {
     return prev(this.value);
   }
-  // // 찾기
+  // 찾기
   index(s: string) {
     return R.of(index).ap(this.value).ap(s);
   }
@@ -84,7 +94,25 @@ export class R<T> {
   is(s: string) {
     return R.of(is).ap(this.value).ap(s);
   }
-
+  // 배열 관련
+  each(f: Function) {
+    return R.of(each).ap(this.value).ap(f);
+  }
+  map(f: Function) {
+    return R.of(map).ap(this.value).ap(f);
+  }
+  grep(f: Function) {
+    return R.of(grep).ap(this.value).ap(f);
+  }
+  filter(f: Function) {
+    return R.of(grep).ap(this.value).ap(f);
+  }
+  inArray(node: R<Node>, s?: number) {
+    return R.of(inArray).ap(node).ap(this.value).ap(s);
+  }
+  merge(node: R<Node>) {
+    return R.of(merge).ap(node).ap(this.value);
+  }
   //개발용 유틸
   log() {
     return Log(this.value);

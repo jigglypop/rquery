@@ -14,3 +14,7 @@ export function RQueryInit() {
   };
 }
 export const RQuery: IRQuery = RQueryInit();
+export function RQueryRootInit() {
+  const $ = RQuery.$;
+  return $;
+}

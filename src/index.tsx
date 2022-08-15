@@ -1,14 +1,15 @@
-import React, { useRef } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+// import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { RQuery } from "./rquery";
+import { RQueryRootInit } from "./rquery";
 
-export const $ = RQuery.$;
+export const $ = RQueryRootInit();
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") ||
+    (document.createElement("div") as HTMLElement)
 );
 root.render(
   <React.StrictMode>

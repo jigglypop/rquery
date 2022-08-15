@@ -25,7 +25,7 @@ export const contains =
   (S: string) => {
     return R.of(RNodes)
       .index(S)
-      .map((x: number) => (x === -1 ? false : true));
+      .rmap((x: number) => (x === -1 ? false : true));
   };
 
 export const is =
