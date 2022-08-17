@@ -1,3 +1,4 @@
+import memoize from "../function/memoize";
 import { R } from "../function/R";
 import {
   dots,
@@ -36,9 +37,12 @@ export const findTag = (refArray: ISelectAll) => {
   }
 };
 
-export const Select = (
-  appRef: React.RefObject<HTMLDivElement> | null,
-  S: string
-) => {
-  return R.of(selectAll).ap(R.of(appRef)).ap(S).chain(findTag).rmap(Array.from);
-};
+export const Select = memoize(
+  (appRef: React.RefObject<HTMLDivElement> | null, S: string) => {
+    return R.of(selectAll)
+      .ap(R.of(appRef))
+      .ap(S)
+      .chain(findTag)
+      .rmap(Array.from);
+  }
+);

@@ -2,7 +2,9 @@ import { contains, find, index, is } from "../query/find";
 import { eq, even, first, last, odd } from "../query/search";
 import { children, parent, parents, prev, siblings } from "../query/choice";
 import { Log } from "../query/util";
-import { each, grep, inArray, map, merge } from "../query/array";
+import { each, grep, inArray, map } from "../query/array";
+import memoize from "./memoize";
+import { range } from "../lazy/array";
 
 export class R<T> {
   constructor(private value: T) {}
@@ -10,6 +12,7 @@ export class R<T> {
   static of<U>(value: U) {
     return new R<U>(value);
   }
+
   get() {
     return this.value;
   }
@@ -110,8 +113,12 @@ export class R<T> {
   inArray(node: R<Node>, s?: number) {
     return R.of(inArray).ap(node).ap(this.value).ap(s);
   }
-  merge(node: R<Node>) {
-    return R.of(merge).ap(node).ap(this.value);
+  // merge(node: R<Node>) {
+  //   return R.of(merge).ap(node).ap(this.value);
+  // }
+  // lazy
+  range(l: number) {
+    return range(l);
   }
   //개발용 유틸
   log() {

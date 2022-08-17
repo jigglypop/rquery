@@ -1,12 +1,32 @@
 import { R } from "../function/R";
 
 // each
+const _range = function* (l: number) {
+  let i = -1;
+  while (++i < l) {
+    yield i;
+  }
+};
+
+export const range = (l: number) => {
+  const rangeinner = _range(l);
+  for (let i = 0; i < l; l++) {
+    rangeinner.next();
+  }
+  return _range(l).next();
+};
+
 export const each =
   <T>(RNodes: T) =>
   (f: Function) => {
-    return R.of(RNodes).rmap((nodes: Node[]) =>
-      nodes.forEach((node: Node, i: number) => f(node, i))
-    );
+    return R.of(RNodes).rmap((nodes: Node[]) => {
+      // const _each = function* (nodes: Node[]) {
+      //   for (const node of nodes) {
+      //     yield f(node);
+      //   }
+      // };
+      // for
+    });
   };
 // map
 export const map =
@@ -39,12 +59,3 @@ export const inArray =
       }
     });
   };
-
-// // merge
-// export const merge =
-//   <T>(nodes: R<Node[]>) =>
-//   (RNodes: T) => {
-//     return R.of(RNodes).chain((_nodes: Node[]) => {
-//       return _nodes.concat(nodes.get());
-//     });
-//   };

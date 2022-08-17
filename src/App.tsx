@@ -3,20 +3,23 @@ import { useEffect, useRef } from "react";
 import Hello from "./components/Hello";
 import { RQuery } from "./rquery";
 import { $ } from ".";
+import { curry } from "./rquery/function/curry";
+import { go } from "./rquery/function/go";
+import { each } from "./rquery/function/map";
 
 function App() {
   const appRef = useRef<HTMLDivElement>(null);
   RQuery.ready(appRef);
 
   useEffect(() => {
-    const N = 10 ** 6;
-    for (let i = 0; i < N; i++) {
-      // const app = $("#App2").get()[0];
-      // const app = document.querySelector("#App2");
-      const app = appRef.current?.querySelector("#App2");
-      // console.log(appRef.current?.querySelector("#App2"));
-    }
-    // console.log($("#App2").merge($(".Hello")));
+    const N = 1;
+    for (let i = 0; i < N; i++) {}
+
+    const add = (a: any, b: any) => {
+      return a + b;
+    };
+    go([1, 2, 3, 4], (a: number) => a + 10, console.log);
+    each([1, 2, 3], console.log);
   }, []);
 
   return (

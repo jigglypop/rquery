@@ -4,8 +4,18 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RQueryRootInit } from "./rquery";
+import memoize from "./rquery/function/memoize";
 
 export const $ = RQueryRootInit();
+
+// const mul = memoize(function (a: any) {
+//   return a * 5;
+// });
+
+// console.log(mul(1));
+// console.log(mul(2));
+// console.log(mul(1));
+// console.log(mul(2));
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") ||

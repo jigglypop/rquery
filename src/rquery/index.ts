@@ -1,4 +1,6 @@
-import { Select } from "./query/select";
+import memoize from "./function/memoize";
+import { R } from "./function/R";
+import { findTag, selectAll } from "./query/select";
 import { IRQuery } from "./type";
 
 export function RQueryInit() {
@@ -8,9 +10,13 @@ export function RQueryInit() {
       appRef = ref;
       return appRef;
     },
-    $: function (S: string) {
-      return Select(appRef, S);
-    },
+    $: memoize(function (S: string) {
+      return R.of(selectAll)
+        .ap(R.of(appRef))
+        .ap(S)
+        .chain(findTag)
+        .rmap(Array.from);
+    }),
   };
 }
 export const RQuery: IRQuery = RQueryInit();
