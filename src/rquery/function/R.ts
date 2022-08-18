@@ -4,7 +4,6 @@ import { children, parent, parents, prev, siblings } from "../query/choice";
 import { Log } from "../query/util";
 import { each, grep, inArray, map } from "../query/array";
 import memoize from "./memoize";
-import { range } from "../lazy/array";
 
 export class R<T> {
   constructor(private value: T) {}
@@ -113,13 +112,7 @@ export class R<T> {
   inArray(node: R<Node>, s?: number) {
     return R.of(inArray).ap(node).ap(this.value).ap(s);
   }
-  // merge(node: R<Node>) {
-  //   return R.of(merge).ap(node).ap(this.value);
-  // }
   // lazy
-  range(l: number) {
-    return range(l);
-  }
   //개발용 유틸
   log() {
     return Log(this.value);
