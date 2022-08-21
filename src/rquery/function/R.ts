@@ -1,9 +1,10 @@
-import { contains, find, index, is } from "../query/find";
+import { find, index, is } from "../query/find";
 import { eq, even, first, last, odd } from "../query/search";
 import { children, parent, parents, prev, siblings } from "../query/choice";
 import { Log } from "../query/util";
-import { each, grep, inArray, map } from "../query/array";
-import memoize from "./memoize";
+import { each, grep, inArray, map, merge } from "../query/array";
+import { lazy } from "../lazy";
+import { contains, contents, has } from "../query/content";
 
 export class R<T> {
   constructor(private value: T) {}
@@ -23,6 +24,9 @@ export class R<T> {
   }
   rmap(f: Function) {
     return new R(f(this.value));
+  }
+  flatMap<U>(f?: Function) {
+    return (this.value as unknown as Array<Array<U>>).flatMap((x) => x);
   }
   // 모나드
   join() {
@@ -112,7 +116,29 @@ export class R<T> {
   inArray(node: R<Node>, s?: number) {
     return R.of(inArray).ap(node).ap(this.value).ap(s);
   }
+  merge<T>(node: R<T>) {
+    return R.of(merge).ap(this.value).ap(node);
+  }
+  // 콘텐츠 탐색 선택자
+  has(s: string) {
+    return R.of(has).ap(this.value).ap(s);
+  }
+  contents() {
+    return R.of(contents).ap(this.value);
+  }
   // lazy
+  lazy() {
+    const value = this.value;
+    return {
+      each(f: Function) {
+        return R.of(lazy.each).ap(f).ap(value);
+      },
+      map(f: Function) {
+        return R.of(lazy.map).ap(f).ap(value);
+      },
+    };
+  }
+
   //개발용 유틸
   log() {
     return Log(this.value);

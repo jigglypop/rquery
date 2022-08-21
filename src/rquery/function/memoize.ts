@@ -1,24 +1,20 @@
-import { R } from "./R";
-
-// const memo = function
-export type ICache<T> = {
-  [key in string]: T;
-};
-
-export type IMemorize<T> = {
-  (key: T): R<T>;
-  cache?: ICache<R<T>>;
-};
+import { IMemorize } from "./type";
 
 export default function memoize<T>(f: Function) {
   const memoize: IMemorize<T> = function (key: T) {
-    const address = "" + key;
+    const _key = "" + key;
     const cache = memoize.cache || {};
-    if (!cache.hasOwnProperty(address)) {
-      delete cache[address];
-      cache[address] = f.apply(null, arguments);
+    const flag =
+      _key.match("cache:") !== null && _key.match("cache:")?.index === 0;
+    if (!cache.hasOwnProperty(_key)) {
+      if (flag) {
+        delete cache[_key];
+        cache[_key] = f.apply(null, arguments);
+      } else {
+        return f.apply(null, arguments);
+      }
     }
-    return cache[address];
+    return cache[_key];
   };
   memoize.cache = {};
   return memoize;

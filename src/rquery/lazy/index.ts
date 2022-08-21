@@ -1,9 +1,11 @@
+import { each } from "./each";
+import { filter } from "./filter";
 import { map } from "./map";
 import { range } from "./range";
-import { reduce } from "./reduce";
 
 export const lazy = {
   range: range,
-  reduce: reduce,
+  each: each,
   map: map,
+  filter: filter,
 };

@@ -40,11 +40,11 @@ export const inArray =
     });
   };
 
-// // merge
-// export const merge =
-//   <T>(nodes: R<Node[]>) =>
-//   (RNodes: T) => {
-//     return R.of(RNodes).chain((_nodes: Node[]) => {
-//       return _nodes.concat(nodes.get());
-//     });
-//   };
+// merge
+export const merge =
+  (RNodes: Node[]) =>
+  <T>(nodes: T) => {
+    return R.of(RNodes).chain((_nodes: Node[]) => {
+      return _nodes.concat((nodes as any).get());
+    });
+  };

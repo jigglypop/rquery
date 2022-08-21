@@ -10,9 +10,7 @@ export type IEl =
   | null
   | undefined;
 
-export type IRef = {
-  value: RefObject<HTMLElement>;
-};
+export type IRef = RefObject<HTMLElement>;
 
 export type IQuery = {
   set: (El: R<IEl>) => Node[];
@@ -20,6 +18,13 @@ export type IQuery = {
   parent: () => IQuery;
   children: () => void;
   prev: () => void;
+};
+
+export type ICheckApp = {
+  cur: HTMLElement | null | NodeListOf<Element> | undefined;
+  SArr: string[];
+  param: string | null | undefined;
+  fname: string | null | undefined;
 };
 
 export type IDotAndParam = {

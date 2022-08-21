@@ -1,11 +1,9 @@
-// 사용자 정의 map
-export const reduce = <T>(f: Function, iter: any, acc?: any) => {
-  if (!iter) {
-    iter = acc[Symbol.iterator]();
-    acc = iter.next().value;
+import { Iterator } from "typescript";
+
+// 사용자 정의 reduce
+export const reduce = <T>(f: Function, iter: Iterator<T>[], init: T) => {
+  for (const cur of iter) {
+    init = f(init, cur);
   }
-  for (const i of iter) {
-    acc = f(acc, i);
-  }
-  return acc;
+  return init;
 };

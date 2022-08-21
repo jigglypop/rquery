@@ -1,10 +1,9 @@
+import { Iterator } from "typescript";
 import { curry } from "../function/curry";
 
-// 사용자 정의 map
-export const filter = curry(function* <T>(f: Function, data: T[]) {
-  const response = [];
-  for (let i = 0; i < data.length; i++) {
-    if (f(i)) yield response.push(i);
+// 사용자 정의 filter(lazy)
+export const filter = curry(function* <T>(f: Function, iter: Iterator<T>[]) {
+  for (const cur of iter) {
+    if (f(cur)) yield cur;
   }
-  return response;
 });

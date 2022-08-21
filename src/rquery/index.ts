@@ -1,7 +1,7 @@
 import memoize from "./function/memoize";
 import { R } from "./function/R";
-import { findTag, selectAll } from "./query/select";
-import { IRQuery } from "./type";
+import { checkApp } from "./query/select";
+import { I$, IRQuery } from "./type";
 
 export function RQueryInit() {
   let appRef: React.RefObject<HTMLDivElement> | null = null;
@@ -10,15 +10,16 @@ export function RQueryInit() {
       appRef = ref;
       return appRef;
     },
-    $: memoize(function (S: string) {
-      return R.of(selectAll)
-        .ap(R.of(appRef))
-        .ap(S)
-        .chain(findTag)
-        .rmap(Array.from);
+    $: memoize(function <T>(S: string) {
+      const _$: I$<T> = function (S: string) {
+        return R.of(checkApp(appRef, S)) as unknown as R<Node[]>;
+      };
+      S = S.replaceAll("cache:", "");
+      return _$(S);
     }),
   };
 }
+
 export const RQuery: IRQuery = RQueryInit();
 export function RQueryRootInit() {
   const $ = RQuery.$;

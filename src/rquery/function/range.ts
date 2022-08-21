@@ -1,2 +1,8 @@
-export const range = (from: number, to: number): number[] =>
-  from < to ? [from, ...range(from + 1, to)] : [];
+export const range = (s: number, e?: number) => {
+  const result = [];
+  let i = e ? s : 0;
+  while (i++ < (e ? e : s)) {
+    result.push(i);
+  }
+  return result;
+};
