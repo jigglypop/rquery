@@ -30,3 +30,12 @@ export const contents = <T>(RNodes: T) => {
     .children()
     .chain((nodes: Node[]) => [nodes[0]]);
 };
+
+export const not =
+  <T>(RNodes: T) =>
+  (S: string) => {
+    const _nodes = $(S).get() as Node[];
+    return R.of(RNodes).chain((nodes: Node[]) =>
+      filter((node: Node) => _nodes.indexOf(node) !== -1, nodes)
+    );
+  };

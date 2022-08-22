@@ -85,3 +85,7 @@ export const checkApp = curry((ref: IRef, S: string) => {
     flatArray
   );
 });
+
+export function useGet<T>(useValue: T, setUseValue: React.Dispatch<T>) {
+  return [useValue, setUseValue];
+}

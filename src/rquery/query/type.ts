@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import React, { RefObject } from "react";
 import { R } from "../function/R";
 
 export type IEl =
@@ -56,3 +56,15 @@ export type ISelectAll = {
 };
 
 export type IKeyOfQuery = typeof R[keyof typeof R];
+
+export type CSSProperty = keyof CSSStyleDeclaration;
+
+export type ICssObj = {
+  [key in CSSProperty]?: string;
+};
+
+export type AttrProperty<T> = keyof React.AllHTMLAttributes<T>;
+
+export type IAttrObj<T> = {
+  [key in AttrProperty<T>]?: string;
+};

@@ -4,7 +4,19 @@ import { children, parent, parents, prev, siblings } from "../query/choice";
 import { Log } from "../query/util";
 import { each, grep, inArray, map, merge } from "../query/array";
 import { lazy } from "../lazy";
-import { contains, contents, has } from "../query/content";
+import { contains, contents, has, not } from "../query/content";
+import {
+  addClass,
+  attr,
+  css,
+  html,
+  removeAttr,
+  removeClass,
+  text,
+  val,
+} from "../query/control";
+import { AttrProperty, IAttrObj, ICssObj } from "../query/type";
+import { RQuery } from "..";
 
 export class R<T> {
   constructor(private value: T) {}
@@ -16,6 +28,11 @@ export class R<T> {
   get() {
     return this.value;
   }
+
+  useGet() {
+    return [this.value, RQuery.getValue()];
+  }
+
   toR() {
     return new R(this.value);
   }
@@ -125,6 +142,35 @@ export class R<T> {
   }
   contents() {
     return R.of(contents).ap(this.value);
+  }
+  not(s: string) {
+    return R.of(not).ap(this.value).ap(s);
+  }
+
+  // 객체 조작 메서드
+  css(property: string | ICssObj, value?: string) {
+    return R.of(css).ap(this.value).ap(property).ap(value);
+  }
+  attr<U>(property: AttrProperty<U> | IAttrObj<U>, value?: Attr) {
+    return R.of(attr).ap(this.value).ap(property).ap(value);
+  }
+  removeAttr(S: string) {
+    return R.of(removeAttr).ap(this.value).ap(S);
+  }
+  addClass(S: string) {
+    return R.of(addClass).ap(this.value).ap(S);
+  }
+  removeClass(S: string) {
+    return R.of(removeClass).ap(this.value).ap(S);
+  }
+  text(S?: string) {
+    return R.of(text).ap(this.value).ap(S);
+  }
+  html(S?: string) {
+    return R.of(html).ap(this.value).ap(S);
+  }
+  val(S?: string) {
+    return R.of(val).ap(this.value).ap(S);
   }
   // lazy
   lazy() {
