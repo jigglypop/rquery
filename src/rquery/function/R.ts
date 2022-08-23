@@ -17,6 +17,7 @@ import {
 } from "../query/control";
 import { AttrProperty, IAttrObj, ICssObj } from "../query/type";
 import { RQuery } from "..";
+import { off, on } from "../query/event";
 
 export class R<T> {
   constructor(private value: T) {}
@@ -171,6 +172,13 @@ export class R<T> {
   }
   val(S?: string) {
     return R.of(val).ap(this.value).ap(S);
+  }
+  // 이벤트
+  on(S: keyof GlobalEventHandlersEventMap, f: Function) {
+    return R.of(on).ap(this.value).ap(S).ap(f);
+  }
+  off(S: keyof GlobalEventHandlersEventMap, f: Function) {
+    return R.of(off).ap(this.value).ap(S).ap(f);
   }
   // lazy
   lazy() {

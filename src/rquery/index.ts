@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import memoize from "./function/memoize";
 import { R } from "./function/R";
 import { checkApp } from "./query/select";
