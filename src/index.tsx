@@ -1,10 +1,16 @@
-import React from "react";
+import React, { RefObject } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RQueryRootInit } from "./rquery";
+import { R } from "./rquery/function/R";
 
 export const $ = RQueryRootInit();
+R.extends({
+  logs: () => {
+    console.log("logs");
+  },
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") ||

@@ -1,5 +1,3 @@
-import { IMemorize } from "./type";
-
 export default function memoize<T>(f: Function) {
   const memoize: IMemorize<T> = function (key: T) {
     const _key = "" + key;
@@ -17,5 +15,6 @@ export default function memoize<T>(f: Function) {
     return cache[_key];
   };
   memoize.cache = {};
+  memoize.each = () => {};
   return memoize;
 }

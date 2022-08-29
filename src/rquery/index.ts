@@ -1,29 +1,41 @@
-import React from "react";
+import React, { RefObject, useState } from "react";
 import memoize from "./function/memoize";
 import { R } from "./function/R";
 import { checkApp } from "./query/select";
-import { I$, IRQuery } from "./type";
+
+type IRQuery = ReturnType<typeof RQueryInit>;
+interface IMemorize<T> {
+  (key: T): R<T>;
+  each: () => void;
+  cache?: ICache<R<T>>;
+}
 
 export function RQueryInit() {
-  let appRef: React.RefObject<HTMLDivElement> | null = null;
-  let _setValue: React.Dispatch<any> | null | undefined = null;
+  let appRef: RefObject<HTMLElement> | null = null;
+  let height: string | null = null;
   return {
-    ready: function <T>(
-      ref: React.RefObject<HTMLDivElement>,
-      setValue: React.Dispatch<T>
-    ) {
+    setHeight: function (_height: string) {
+      if (height === null) {
+        height = _height;
+      }
+    },
+    getHeight: function () {
+      return height;
+    },
+    ready: function <T>(ref: RefObject<HTMLElement>) {
       appRef = ref;
-      _setValue = setValue;
       return appRef;
     },
-    getValue: function () {
-      return _setValue;
-    },
-    $: memoize(function <T>(S: string) {
-      const _$: I$<T> = function (S: string) {
-        return R.of(checkApp(appRef, S)) as unknown as R<Node[]>;
+    $: memoize(function (S: string | React.RefObject<HTMLElement>) {
+      const _$ = function (S: string | React.RefObject<HTMLElement>) {
+        if (typeof S === "string") {
+          S = S.replaceAll("cache:", "");
+          return R.of(checkApp(appRef, S)) as unknown as R<HTMLElement[]>;
+        } else {
+          appRef = S;
+          return R.of([S.current as HTMLElement]);
+        }
       };
-      S = S.replaceAll("cache:", "");
       return _$(S);
     }),
   };
@@ -31,6 +43,8 @@ export function RQueryInit() {
 
 export const RQuery: IRQuery = RQueryInit();
 export function RQueryRootInit() {
-  const $ = RQuery.$;
+  const $ = RQuery.$ as unknown as IMemorize<
+    string | React.RefObject<HTMLElement>
+  >;
   return $;
 }

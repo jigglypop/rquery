@@ -2,14 +2,7 @@ import { curry } from "../function/curry";
 import { map } from "../function/each";
 import { go } from "../function/go";
 import { R } from "../function/R";
-import {
-  dots,
-  dotsAndParam,
-  ICheckApp,
-  IDot,
-  IDotAndParam,
-  IRef,
-} from "./type";
+import { dots, dotsAndParam } from "./control";
 
 // 셀렉트 함수를 모아놓은 부분
 
@@ -85,7 +78,3 @@ export const checkApp = curry((ref: IRef, S: string) => {
     flatArray
   );
 });
-
-export function useGet<T>(useValue: T, setUseValue: React.Dispatch<T>) {
-  return [useValue, setUseValue];
-}

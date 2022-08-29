@@ -1,6 +1,6 @@
 import { R } from "../function/R";
 
-export function Log<T>(ref: T) {
+export function Log(ref: IRProps) {
   console.log(ref);
   return R.of(ref);
 }
