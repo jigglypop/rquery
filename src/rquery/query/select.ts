@@ -45,21 +45,29 @@ const parseParam = (Obj: R<ICheckApp[]>) => {
   }, Obj);
 };
 
-// 함수 실행
-const runFunction = (Obj: R<ICheckApp[]>) => {
+// 객체 뽑기
+const getCur = (Obj: R<ICheckApp[]>) => {
   return map((_Obj: ICheckApp) => {
     const cur = Array.from((_Obj.cur as NodeListOf<Element>) || []);
-    if (_Obj.fname && dots.includes(_Obj.fname)) {
-      return R.of(cur)[_Obj.fname as keyof IDot]().get();
-    } else if (_Obj.fname && _Obj.param && dotsAndParam.includes(_Obj.fname)) {
-      return R.of(cur)
-        [_Obj.fname as keyof IDotAndParam](parseInt(_Obj.param))
-        .get();
-    } else {
-      return R.of(cur).get();
-    }
+    return R.of(cur).get();
   }, Obj);
 };
+
+// 함수 실행
+// const runFunction = (Obj: R<ICheckApp[]>) => {
+//   return map((_Obj: ICheckApp) => {
+//     const cur = Array.from((_Obj.cur as NodeListOf<Element>) || []);
+//     if (_Obj.fname && dots.includes(_Obj.fname)) {
+//       return R.of(cur)[_Obj.fname as keyof IDot]().get();
+//     } else if (_Obj.fname && _Obj.param && dotsAndParam.includes(_Obj.fname)) {
+//       return R.of(cur)
+//         [_Obj.fname as keyof IDotAndParam](parseInt(_Obj.param))
+//         .get();
+//     } else {
+//       return R.of(cur).get();
+//     }
+//   }, Obj);
+// };
 
 // array 분리
 const flatArray = (R: R<ICheckApp[]>) => {
@@ -74,7 +82,7 @@ export const checkApp = curry((ref: IRef, S: string) => {
     isApp(ref),
     parseFname,
     parseParam,
-    runFunction,
+    getCur,
     flatArray
   );
 });

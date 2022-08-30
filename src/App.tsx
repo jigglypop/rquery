@@ -21,7 +21,7 @@ function App() {
     const N = 1;
     for (let i = 0; i < N; i++) {}
     return () => {
-      R.of(".Hello");
+      console.log($(".Hello"));
     };
   }, []);
 

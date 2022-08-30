@@ -6,7 +6,7 @@ import { lazy } from "../lazy";
 
 // 인덱스 찾기 함수
 export const index: IFind = (RNodes) => (S) => {
-  const _nodes = $(S).get();
+  const _nodes = $(S).get() as HTMLElement[];
   return R.of(RNodes)
     .chain((nodes: Node[]) =>
       R.of(
@@ -22,7 +22,7 @@ export const index: IFind = (RNodes) => (S) => {
 
 // 찾기 함수
 export const find: IFind = (RNodes) => (S) => {
-  const _nodes = $(S).get();
+  const _nodes = $(S).get() as HTMLElement[];
   return R.of(RNodes).chain((nodes: HTMLElement[]) =>
     go(
       nodes,

@@ -28,7 +28,7 @@ export const contents: IContents = (RNodes) => {
 };
 
 export const not: INot = (RNodes) => (S) => {
-  const _nodes = $(S).get();
+  const _nodes = $(S).get() as HTMLElement[];
   return R.of(RNodes).chain((nodes: HTMLElement[]) =>
     filter((node: HTMLElement) => _nodes.indexOf(node) !== -1, nodes)
   );
