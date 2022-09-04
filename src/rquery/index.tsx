@@ -1,4 +1,4 @@
-import React, { RefObject, useState } from "react";
+import React, { RefObject, useRef } from "react";
 import memoize from "./function/memoize";
 import { R } from "./function/R";
 import { checkApp } from "./query/select";
@@ -22,7 +22,7 @@ export function RQueryInit() {
     getHeight: function () {
       return height;
     },
-    ready: function <T>(ref: RefObject<HTMLElement>) {
+    ready: function (ref: RefObject<HTMLElement>) {
       appRef = ref;
       return appRef;
     },
@@ -47,4 +47,10 @@ export function RQueryRootInit() {
     string | React.RefObject<HTMLElement>
   >;
   return $;
+}
+
+export default function RQueryRoot({ children }: any) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  RQuery.ready(rootRef);
+  return <div ref={rootRef}>{children}</div>;
 }

@@ -2,7 +2,7 @@ import React, { RefObject } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { RQueryRootInit } from "./rquery";
+import RQueryRoot, { RQueryRootInit } from "./rquery";
 import { R } from "./rquery/function/R";
 
 export const $ = RQueryRootInit();
@@ -18,7 +18,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <RQueryRoot>
+      <App />
+    </RQueryRoot>
   </React.StrictMode>
 );
 

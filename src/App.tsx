@@ -4,14 +4,7 @@ import Hello from "./components/Hello";
 import { RQuery } from "./rquery";
 import { R } from "./rquery/function/R";
 
-export function useRQueryEffect() {
-  const appRef = useRef<HTMLDivElement>(null);
-  RQuery.ready(appRef);
-  return appRef;
-}
-
 function App() {
-  const appRef = useRQueryEffect();
   const divRef = useRef(null);
 
   const setValueA = () => $("#App21").css({ color: "red" });
@@ -21,12 +14,12 @@ function App() {
     const N = 1;
     for (let i = 0; i < N; i++) {}
     return () => {
-      console.log($(".Hello"));
+      console.log("rquery", $(".Hello"));
     };
   }, []);
 
   return (
-    <div id="App" className="App" ref={appRef}>
+    <div id="App" className="App">
       <button id="buttonA" onClick={(e) => setValueA()}>
         연습버튼A
       </button>

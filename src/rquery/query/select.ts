@@ -2,7 +2,6 @@ import { curry } from "../function/curry";
 import { map } from "../function/each";
 import { go } from "../function/go";
 import { R } from "../function/R";
-import { dots, dotsAndParam } from "./control";
 
 // 셀렉트 함수를 모아놓은 부분
 
@@ -52,22 +51,6 @@ const getCur = (Obj: R<ICheckApp[]>) => {
     return R.of(cur).get();
   }, Obj);
 };
-
-// 함수 실행
-// const runFunction = (Obj: R<ICheckApp[]>) => {
-//   return map((_Obj: ICheckApp) => {
-//     const cur = Array.from((_Obj.cur as NodeListOf<Element>) || []);
-//     if (_Obj.fname && dots.includes(_Obj.fname)) {
-//       return R.of(cur)[_Obj.fname as keyof IDot]().get();
-//     } else if (_Obj.fname && _Obj.param && dotsAndParam.includes(_Obj.fname)) {
-//       return R.of(cur)
-//         [_Obj.fname as keyof IDotAndParam](parseInt(_Obj.param))
-//         .get();
-//     } else {
-//       return R.of(cur).get();
-//     }
-//   }, Obj);
-// };
 
 // array 분리
 const flatArray = (R: R<ICheckApp[]>) => {
