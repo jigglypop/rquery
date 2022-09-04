@@ -2,6 +2,7 @@ import { R } from "../function/R";
 
 // 부모 선택자
 export const parent: IParent = function (RNodes) {
+  console.log("hello");
   return R.of(RNodes).rmap((nodes: HTMLElement[]) =>
     nodes.reduce(
       (_nodes: HTMLElement[], node: HTMLElement) =>
